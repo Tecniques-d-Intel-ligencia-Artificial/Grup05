@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-import json
-
 
 class Box:
 
@@ -14,7 +12,7 @@ class Box:
         return self.height * self.width * self.width
 
     def __str__(self):
-        return json.dumps(self.__dict__).__str__()
+        return str(self.get_volume())
 
     def __gt__(self, other: Box):
         return self.get_volume() > other.get_volume()

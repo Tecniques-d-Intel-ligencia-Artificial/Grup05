@@ -1,9 +1,10 @@
 import random
-import state
-from state import State
-from box import Box
 
-stack_A = [
+import astaralgorithm
+from box import Box
+from state import HanoiState
+
+start_stack = [
     Box(15, 50, 30),
     Box(4, 4, 4),
     Box(20, 70, 30),
@@ -15,18 +16,33 @@ stack_A = [
     Box(15, 30, 15)
 ]
 
-stack_B = [
-    Box(15, 50, 30),
-    Box(4, 4, 4),
-    Box(20, 70, 30)
-]
+random.shuffle(start_stack)
 
-random.shuffle(stack_A)
-
-root_state = State(0, None, {
-    "Stack A": stack_B,
+start_value = {
+    "Stack A": start_stack,
     "Stack B": [],
     "Stack C": []
-})
+}
 
-state.create_state_tree(root_state)
+goal_stack = sorted(start_stack, reverse=True)
+
+goal_value = {
+    "Stack A": [],
+    "Stack B": [],
+    "Stack C": goal_stack
+}
+
+root_state = HanoiState(value=start_value, goal=goal_value)
+
+print("Starting A* algorithm path search...")
+path = astaralgorithm.get_solving_path(root_state)
+
+for i, step in enumerate(path):
+    print(f"\n\nStep {i}")
+    string = ""
+    for key in step:
+        string += f"{key}: "
+        for box in step[key]:
+            string += str(box.get_volume()) + ", "
+        string += "\n"
+    print(string)
