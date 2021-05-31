@@ -38,7 +38,7 @@ print("Starting A* algorithm path search...")
 path = astaralgorithm.get_solving_path(root_state)
 
 for i, step in enumerate(path):
-    print(f"\n\nStep {i}")
+    print(f"\nStep {i}")
     string = ""
     for key in step:
         string += f"{key}: "
